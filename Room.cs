@@ -111,20 +111,6 @@ namespace MineGame
             return Tiles[x, y].TileType != TileType.Wall;
         }
 
-        internal void InteractWithTile(int x, int y)
-        {
-            var tile = Tiles[x, y];
-            if (tile.TileType == TileType.Exit)
-            {
-                Kill();
-            }
-            else if (tile.TileType == TileType.Mine)
-            {
-                tile.TileType = TileType.MineExploded;
-            }
-
-        }
-
         private Vector2 GetPositionAbsolute(int x, int y)
         {
             const int spriteSize = 16;
