@@ -8,12 +8,16 @@ namespace MineGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Room room;
+        private Player player;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            graphics.PreferredBackBufferWidth = 1000;
+            graphics.PreferredBackBufferHeight = 600;
         }
 
         protected override void Initialize()
@@ -21,6 +25,11 @@ namespace MineGame
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            room = new Room(Content);
+            room.LoadLevelOne();
+
+            player = new Player(Content, room);
         }
 
         protected override void LoadContent()
@@ -37,6 +46,9 @@ namespace MineGame
 
             // TODO: Add your update logic here
 
+            //room.Update();
+            player.Update();
+
             base.Update(gameTime);
         }
 
@@ -44,7 +56,14 @@ namespace MineGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
+
             // TODO: Add your drawing code here
+            
+            room.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
