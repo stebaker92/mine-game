@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin PithazardLarge.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PithazardLarge.spritefont
+
 #begin minesweeper.png
 /importer:TextureImporter
 /processor:TextureProcessor

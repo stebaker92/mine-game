@@ -4,39 +4,46 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MineGame
 {
+    public enum GameState
+    {
+        Playing,
+        GameOver,
+        Won,
+    }
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Room room;
         private Player player;
+        private GameState state;
+        private GameOverWidget gameOverOverlay;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            graphics.PreferredBackBufferWidth = 1000;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = Constants.ScreenWidth;
+            graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
 
             room = new Room(Content);
             room.LoadLevelOne();
 
             player = new Player(Content, room);
+
+            state = GameState.Playing;
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -44,24 +51,56 @@ namespace MineGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            switch (state)
+            {
+                case GameState.Playing:
+                    player.Update();
 
-            //room.Update();
-            player.Update();
+                    if (player.HasExploded)
+                    {
+                        state = GameState.GameOver;
+                        gameOverOverlay = new GameOverWidget(graphics.GraphicsDevice, Content);
+                    }
+                    else if (player.HasReachedGoal)
+                    {
+                        state = GameState.Won;
+                    }
+
+                    break;
+                case GameState.GameOver:
+                    player.Update();
+
+                    gameOverOverlay.Update();
+                    break;
+                case GameState.Won:
+                    player.Update();
+                    break;
+            }
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 
-            // TODO: Add your drawing code here
-            
-            room.Draw(spriteBatch);
-            player.Draw(spriteBatch);
+            switch (state)
+            {
+                case GameState.Playing:
+                    room.Draw(spriteBatch);
+                    player.Draw(spriteBatch);
+                    break;
+                case GameState.GameOver:
+                    room.Draw(spriteBatch);
+                    player.Draw(spriteBatch);
+                    gameOverOverlay.Draw(spriteBatch);
+                    break;
+                case GameState.Won:
+                    player.Draw(spriteBatch);
+                    break;
+            }
 
             spriteBatch.End();
 

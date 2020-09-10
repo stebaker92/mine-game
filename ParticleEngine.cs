@@ -63,13 +63,13 @@ namespace ParticleEngine2D
         private List<Texture2D> textures;
         private int timeActive;
 
-        public ParticleEngine(List<Texture2D> textures, Vector2 location, int ttl = 60, Color? color = null, int particleCount = 10)
+        public ParticleEngine(List<Texture2D> textures, Vector2 location, int ttl = 10, Color? color = null, int particleCount = 10)
         {
             EmitterLocation = location;
             this.textures = textures;
             this.particles = new List<Particle>();
             random = new Random();
-            this.ttl = 10;
+            this.ttl = ttl;
             this.color = color;
             this.particleCount = particleCount;
         }
