@@ -56,13 +56,14 @@ namespace ParticleEngine2D
         private Random random;
         private int ttl;
         private Color? color;
+        private readonly int particleCount;
 
         public Vector2 EmitterLocation { get; set; }
         private List<Particle> particles;
         private List<Texture2D> textures;
         private int timeActive;
 
-        public ParticleEngine(List<Texture2D> textures, Vector2 location, int ttl = 60, Color? color = null)
+        public ParticleEngine(List<Texture2D> textures, Vector2 location, int ttl = 60, Color? color = null, int particleCount = 10)
         {
             EmitterLocation = location;
             this.textures = textures;
@@ -70,6 +71,7 @@ namespace ParticleEngine2D
             random = new Random();
             this.ttl = 10;
             this.color = color;
+            this.particleCount = particleCount;
         }
 
         public void Update()
@@ -92,7 +94,7 @@ namespace ParticleEngine2D
             timeActive++;
 
 
-            int total = 10;
+            int total = particleCount;
 
             for (int i = 0; i < total; i++)
             {

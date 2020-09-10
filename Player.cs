@@ -16,6 +16,7 @@ namespace MineGame
         private readonly Room room;
         private KeyboardState lastState;
         private ParticleEngine particleEmitter;
+        private string textureName = "robot_3Dblue";
 
         public Player(ContentManager content, Room room)
         {
@@ -25,6 +26,7 @@ namespace MineGame
             Y = (int)room.StartPosition.Y;
         }
 
+        public bool IsExploded { get; private set; }
         public int X { get; set; }
         public int Y { get; set; }
         public double Rotate { get; set; }
@@ -32,6 +34,11 @@ namespace MineGame
         public void Update()
         {
             particleEmitter?.Update();
+
+            if (IsExploded)
+            {
+                return;
+            }
 
             KeyboardState state = Keyboard.GetState();
             if (IsNewKeyPress(state, Keys.Left) && room.CanMoveToTile(X - 1, Y))
@@ -72,7 +79,7 @@ namespace MineGame
             else if (tile.TileType == TileType.Mine)
             {
                 tile.TileType = TileType.MineExploded;
-                Kill();
+                GameOver();
             }
         }
 
@@ -84,11 +91,24 @@ namespace MineGame
         {
             return (Math.PI / 180) * angle;
         }
-        public void Kill()
+
+        public void LevelSuccess()
         {
             var textures = new List<Texture2D>();
             textures.Add(content.Load<Texture2D>("star"));
-            
+
+            particleEmitter = new ParticleEngine(textures, new Vector2(600, 340), color: Color.Green, particleCount: 20);
+
+            particleEmitter.EmitterLocation = new Vector2(X * Constants.TileSize * Constants.Zoom + 16, Y * Constants.TileSize * Constants.Zoom + 16);
+        }
+
+        public void GameOver()
+        {
+            IsExploded = true;
+
+            var textures = new List<Texture2D>();
+            textures.Add(content.Load<Texture2D>("star"));
+
             particleEmitter = new ParticleEngine(textures, new Vector2(400, 240), color: Color.Red);
 
             particleEmitter.EmitterLocation = new Vector2(X * Constants.TileSize * Constants.Zoom + 16, Y * Constants.TileSize * Constants.Zoom + 16);
@@ -96,15 +116,21 @@ namespace MineGame
 
         public void Draw(SpriteBatch sb)
         {
-            const int spriteSize = 16;
-            var texture = content.Load<Texture2D>("robot_3Dblue");
+            particleEmitter?.Draw(sb);
+
+            if (IsExploded)
+            {
+                // TODO - fade out on death
+                return;
+            }
+
+            var spriteSize = Constants.TileSize;
+            var texture = content.Load<Texture2D>(textureName);
             var origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
 
             sb.Draw(texture, new Vector2(X * spriteSize * Constants.Zoom + 16, Y * spriteSize * Constants.Zoom + 16), color: Color.White, scale: new Vector2(0.15f, 0.15f), rotation: (float)Rotate, origin: origin);
 
 
-            particleEmitter?.Draw(sb);
         }
-
     }
 }
