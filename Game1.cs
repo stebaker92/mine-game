@@ -17,8 +17,10 @@ namespace MineGame
         SpriteBatch spriteBatch;
         private RoomScene room;
         private Player player;
-        private GameState state;
+        private GameState gameState;
         private GameOverWidget gameOverOverlay;
+        private KeyboardState keyboardState;
+        private KeyboardState lastKeyboardState;
 
         public Game1()
         {
@@ -29,6 +31,16 @@ namespace MineGame
             graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
         }
 
+        public void Restart()
+        {
+            Initialize();
+        }
+
+        public bool IsNewKeyPress(Keys key)
+        {
+            return keyboardState.IsKeyDown(key) && !lastKeyboardState.IsKeyDown(key);
+        }
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -36,9 +48,9 @@ namespace MineGame
             room = new RoomScene(Content);
             room.LoadLevelOne();
 
-            player = new Player(Content, room);
+            player = new Player(Content, room, this);
 
-            state = GameState.Playing;
+            gameState = GameState.Playing;
         }
 
         protected override void LoadContent()
@@ -48,22 +60,24 @@ namespace MineGame
 
         protected override void Update(GameTime gameTime)
         {
+            keyboardState = Keyboard.GetState();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            switch (state)
+            switch (gameState)
             {
                 case GameState.Playing:
                     player.Update();
 
                     if (player.HasExploded)
                     {
-                        state = GameState.GameOver;
-                        gameOverOverlay = new GameOverWidget(graphics.GraphicsDevice, Content);
+                        gameState = GameState.GameOver;
+                        gameOverOverlay = new GameOverWidget(this);
                     }
                     else if (player.HasReachedGoal)
                     {
-                        state = GameState.Won;
+                        gameState = GameState.Won;
                     }
 
                     break;
@@ -77,6 +91,8 @@ namespace MineGame
                     break;
             }
 
+            lastKeyboardState = keyboardState;
+
             base.Update(gameTime);
         }
 
@@ -86,7 +102,7 @@ namespace MineGame
 
             spriteBatch.Begin();
 
-            switch (state)
+            switch (gameState)
             {
                 case GameState.Playing:
                     room.Draw(spriteBatch);

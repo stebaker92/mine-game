@@ -11,6 +11,7 @@ namespace MineGame
     {
         private readonly ContentManager content;
         private readonly RoomScene room;
+        private readonly Game1 game;
         private KeyboardState lastState;
         private ParticleEngine particleEmitter;
         private string textureName = "robot_3Dred";
@@ -25,10 +26,11 @@ namespace MineGame
         private int Y;
         private double spriteRotatation;
 
-        public Player(ContentManager content, RoomScene room)
+        public Player(ContentManager content, RoomScene room, Game1 game)
         {
             this.content = content;
             this.room = room;
+            this.game = game;
             X = (int)room.StartPosition.X;
             Y = (int)room.StartPosition.Y;
         }
@@ -46,34 +48,30 @@ namespace MineGame
                 return;
             }
 
-            KeyboardState state = Keyboard.GetState();
-            if (IsNewKeyPress(state, Keys.Left) && room.TileIsWalkable(X - 1, Y))
+            if (game.IsNewKeyPress(Keys.Left) && room.TileIsWalkable(X - 1, Y))
             {
                 X--;
                 spriteRotatation = 180.ConvertToRadians();
                 InteractWithTile(X, Y);
             }
-            if (IsNewKeyPress(state, Keys.Right) && room.TileIsWalkable(X + 1, Y))
+            if (game.IsNewKeyPress(Keys.Right) && room.TileIsWalkable(X + 1, Y))
             {
                 X++;
                 spriteRotatation = 0.ConvertToRadians();
                 InteractWithTile(X, Y);
             }
-            if (IsNewKeyPress(state, Keys.Up) && room.TileIsWalkable(X, Y - 1))
+            if (game.IsNewKeyPress(Keys.Up) && room.TileIsWalkable(X, Y - 1))
             {
                 Y--;
                 spriteRotatation = 270.ConvertToRadians();
                 InteractWithTile(X, Y);
             }
-            if (IsNewKeyPress(state, Keys.Down) && room.TileIsWalkable(X, Y + 1))
+            if (game.IsNewKeyPress(Keys.Down) && room.TileIsWalkable(X, Y + 1))
             {
                 Y++;
                 spriteRotatation = 90.ConvertToRadians();
                 InteractWithTile(X, Y);
             }
-
-
-            lastState = state;
         }
 
         internal void InteractWithTile(int x, int y)
@@ -88,11 +86,6 @@ namespace MineGame
                 tile.Explode();
                 Kill();
             }
-        }
-
-        private bool IsNewKeyPress(KeyboardState state, Keys key)
-        {
-            return state.IsKeyDown(key) && !lastState.IsKeyDown(key);
         }
 
         public void ReachGoal()

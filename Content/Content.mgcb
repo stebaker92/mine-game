@@ -20,6 +20,13 @@
 /processorParam:TextureFormat=Compressed
 /build:PithazardLarge.spritefont
 
+#begin ArialMedium.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ArialMedium.spritefont
+
 #begin minesweeper.png
 /importer:TextureImporter
 /processor:TextureProcessor
