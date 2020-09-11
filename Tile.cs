@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace MineGame
 {
@@ -17,7 +14,9 @@ namespace MineGame
 
     public class Tile
     {
-        public TileType TileType { get; set; }
+        public string TextureName => "minesweeper";
+
+        public TileType TileType { get; private set; }
 
         public Tile(char c)
         {
@@ -48,11 +47,9 @@ namespace MineGame
             }
         }
 
-        public string GetTextureName()
+        internal void Explode()
         {
-            return "minesweeper" ?? TileType.ToString();
+            TileType = TileType.MineExploded;
         }
-
-
     }
 }

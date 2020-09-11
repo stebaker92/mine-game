@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ParticleEngine2D;
 
 /// <summary>
 /// Particle engine sourced (and modified) from the following MonoGame tutuorial:

@@ -15,7 +15,7 @@ namespace MineGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Room room;
+        private RoomScene room;
         private Player player;
         private GameState state;
         private GameOverWidget gameOverOverlay;
@@ -33,7 +33,7 @@ namespace MineGame
         {
             base.Initialize();
 
-            room = new Room(Content);
+            room = new RoomScene(Content);
             room.LoadLevelOne();
 
             player = new Player(Content, room);

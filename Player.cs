@@ -3,20 +3,17 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ParticleEngine2D;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MineGame
 {
     public class Player
     {
         private readonly ContentManager content;
-        private readonly Room room;
+        private readonly RoomScene room;
         private KeyboardState lastState;
         private ParticleEngine particleEmitter;
-        private string textureName = "robot_3Dblue";
+        private string textureName = "robot_3Dred";
 
         /// <summary>
         /// Tile X
@@ -28,7 +25,7 @@ namespace MineGame
         private int Y;
         private double spriteRotatation;
 
-        public Player(ContentManager content, Room room)
+        public Player(ContentManager content, RoomScene room)
         {
             this.content = content;
             this.room = room;
@@ -50,25 +47,25 @@ namespace MineGame
             }
 
             KeyboardState state = Keyboard.GetState();
-            if (IsNewKeyPress(state, Keys.Left) && room.CanMoveToTile(X - 1, Y))
+            if (IsNewKeyPress(state, Keys.Left) && room.TileIsWalkable(X - 1, Y))
             {
                 X--;
                 spriteRotatation = 180.ConvertToRadians();
                 InteractWithTile(X, Y);
             }
-            if (IsNewKeyPress(state, Keys.Right) && room.CanMoveToTile(X + 1, Y))
+            if (IsNewKeyPress(state, Keys.Right) && room.TileIsWalkable(X + 1, Y))
             {
                 X++;
                 spriteRotatation = 0.ConvertToRadians();
                 InteractWithTile(X, Y);
             }
-            if (IsNewKeyPress(state, Keys.Up) && room.CanMoveToTile(X, Y - 1))
+            if (IsNewKeyPress(state, Keys.Up) && room.TileIsWalkable(X, Y - 1))
             {
                 Y--;
                 spriteRotatation = 270.ConvertToRadians();
                 InteractWithTile(X, Y);
             }
-            if (IsNewKeyPress(state, Keys.Down) && room.CanMoveToTile(X, Y + 1))
+            if (IsNewKeyPress(state, Keys.Down) && room.TileIsWalkable(X, Y + 1))
             {
                 Y++;
                 spriteRotatation = 90.ConvertToRadians();
@@ -88,7 +85,7 @@ namespace MineGame
             }
             else if (tile.TileType == TileType.Mine)
             {
-                tile.TileType = TileType.MineExploded;
+                tile.Explode();
                 Kill();
             }
         }

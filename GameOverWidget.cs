@@ -12,8 +12,7 @@ namespace MineGame
         private readonly ContentManager content;
         private Texture2D fadeTexture;
         private float fadeLayerOpacity = 0.1f;
-        private int screenHeight = 600;
-
+        private int screenHeight = Constants.ScreenHeight;
         private const string gameOverText = "You Died";
 
         public GameOverWidget(GraphicsDevice graphicsDevice, ContentManager content)
