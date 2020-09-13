@@ -13,12 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin PithazardLarge.spritefont
+#begin ArialLarge.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:PithazardLarge.spritefont
+/build:ArialLarge.spritefont
 
 #begin ArialMedium.spritefont
 /importer:FontDescriptionImporter
@@ -26,6 +26,19 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:ArialMedium.spritefont
+
+
+#begin diamond.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:diamond.png
 
 #begin minesweeper.png
 /importer:TextureImporter
@@ -38,6 +51,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:minesweeper.png
+
+#begin PithazardLarge.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PithazardLarge.spritefont
 
 #begin robot_3Dblue.png
 /importer:TextureImporter

@@ -18,7 +18,8 @@ namespace MineGame
         private RoomScene room;
         private Player player;
         private GameState gameState;
-        private GameOverWidget gameOverOverlay;
+        private GameOverComponent gameOverOverlay;
+        private SuccessComponent successOverlay;
         private KeyboardState keyboardState;
         private KeyboardState lastKeyboardState;
 
@@ -46,7 +47,7 @@ namespace MineGame
             base.Initialize();
 
             room = new RoomScene(Content);
-            room.LoadLevelOne();
+            room.LoadMap();
 
             player = new Player(Content, room, this);
 
@@ -73,21 +74,22 @@ namespace MineGame
                     if (player.HasExploded)
                     {
                         gameState = GameState.GameOver;
-                        gameOverOverlay = new GameOverWidget(this);
+                        gameOverOverlay = new GameOverComponent(this);
                     }
                     else if (player.HasReachedGoal)
                     {
                         gameState = GameState.Won;
+                        successOverlay = new SuccessComponent(this);
                     }
 
                     break;
                 case GameState.GameOver:
                     player.Update();
-
                     gameOverOverlay.Update();
                     break;
                 case GameState.Won:
                     player.Update();
+                    successOverlay.Update();
                     break;
             }
 
@@ -115,6 +117,7 @@ namespace MineGame
                     break;
                 case GameState.Won:
                     player.Draw(spriteBatch);
+                    successOverlay.Draw(spriteBatch);
                     break;
             }
 

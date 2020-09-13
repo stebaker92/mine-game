@@ -12,7 +12,6 @@ namespace MineGame
         private readonly ContentManager content;
         private readonly RoomScene room;
         private readonly Game1 game;
-        private KeyboardState lastState;
         private ParticleEngine particleEmitter;
         private string textureName = "robot_3Dred";
 
@@ -95,7 +94,7 @@ namespace MineGame
             var textures = new List<Texture2D>();
             textures.Add(content.Load<Texture2D>("star"));
 
-            particleEmitter = new ParticleEngine(textures, new Vector2(600, 340), particleCount: 30, ttl: 240);
+            particleEmitter = new ParticleEngine(textures, new Vector2(600, 340), particleCount: 20, color: Color.Green, ttl: 180);
 
             particleEmitter.EmitterLocation = new Vector2(X * Constants.TileSize * Constants.Zoom + 16, Y * Constants.TileSize * Constants.Zoom + 16);
         }
