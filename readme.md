@@ -15,8 +15,16 @@ E Exit
 
 It's expected that your game will display the map and exit to the player, but obviously not the locations of the mines.
 
+## Screenshots (Animated)
+
+![Success](/screenshots/success.gif)
+![Game Over](/screenshots/gameover.gif)
+
 ## Screenshots
 
+![Room](/screenshots/room.png)
+![Success](/screenshots/success.png)
+![Game Over](/screenshots/gameover.png)
 
 ## Resources
 'Pithazard' Font from: 
