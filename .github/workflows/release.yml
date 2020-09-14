@@ -1,0 +1,29 @@
+on:
+  push:
+    branches: [ master ]
+
+name: Create Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Publish Windows
+        run: dotnet publish -c Release -r win-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained
+          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Game.zip
+          path: ./bin/Release/netcoreapp2.0/win-x64/publish/
+
