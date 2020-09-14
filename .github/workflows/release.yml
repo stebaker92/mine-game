@@ -24,6 +24,6 @@ jobs:
           
       - uses: actions/upload-artifact@v2
         with:
-          name: Game.zip
+          name: Mine Game
           path: ./bin/Release/netcoreapp2.0/win-x64/publish/
 
