@@ -13,20 +13,11 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ArialLarge.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:ArialLarge.spritefont
+#begin ArialLarge.xnb
+/copy:ArialLarge.xnb
 
-#begin ArialMedium.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:ArialMedium.spritefont
-
+#begin ArialMedium.xnb
+/copy:ArialMedium.xnb
 
 #begin diamond.png
 /importer:TextureImporter
@@ -52,12 +43,8 @@
 /processorParam:TextureFormat=Color
 /build:minesweeper.png
 
-#begin PithazardLarge.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:PithazardLarge.spritefont
+#begin PithazardLarge.xnb
+/copy:PithazardLarge.xnb
 
 #begin robot_3Dblue.png
 /importer:TextureImporter

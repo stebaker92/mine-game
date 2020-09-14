@@ -34,3 +34,9 @@ http://www.thealmightyguru.com/GameFonts/Series-ResidentEvil.html
 
 Particle engine sourced (and modified) from the following MonoGame tutuorial:
 http://rbwhitaker.wikidot.com/2d-particle-engine-1
+
+
+## Notes
+
+Image assets are compiled as part of the build process but fonts have been compiled and committed to git 
+because fonts need to be installed on the build agents or users machine
