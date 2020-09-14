@@ -36,6 +36,13 @@ Particle engine sourced (and modified) from the following MonoGame tutuorial:
 http://rbwhitaker.wikidot.com/2d-particle-engine-1
 
 
+## Building and running
+
+To build, install dotnet core 3+ and run: `dotnet build` and `dotnet run`
+
+If you cannot build locally, you can download the latest version build via my GitHub Actions or Releases tab
+
+
 ## Notes
 
 Image assets are compiled as part of the build process but fonts have been compiled and committed to git 
